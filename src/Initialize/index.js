@@ -1,6 +1,7 @@
 import React from 'react';
 import Loading from '../components/Loading';
 import LogIn from '../pages/LogIn';
+import NavBar from '../components/Navbar';
 import Routes from '../routes';
 import { useAuth } from '../utils/context/authContext';
 
@@ -12,7 +13,7 @@ function Initialize() {
     return <Loading />;
   }
 
-  return <>{user ? <Routes user={user} /> : <LogIn />}</>;
+  return <>{user ? (<><NavBar user={user} /> <Routes user={user} /></>): <LogIn />}</>;
 }
 
 export default Initialize;
