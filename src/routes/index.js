@@ -9,12 +9,33 @@ import Shows from '../pages/Shows';
 
 export default function Routes({ user }) {
 // console.log(user.name);
-const [foundUser, setFoundUser] = useState([]);
+const [firebaseUser, setFirebaseUser] = useState([]);
+
+const RegisterUser = (user) => {
+  const fetchOptions = {
+      method: 'POST',
+      headers: {
+          'Access-Control-Allow-Origin': 'https://localhost:7108',
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user)
+  }
+  return fetch('https://localhost:7057/api/User/RegisterUser', fetchOptions)
+}
+const submit = () => {
+  const data = {
+    "name": user.displayName,
+    "email": user.email,
+    "firebaseId": user.$.W,
+    "image": user.photoURL
+  }
+  RegisterUser(data)
+}
 
 useEffect(() => {
   fetch(
     'https://localhost:7108/api/User/CheckIfUserExists/' + user.$.W,
-    {
+    { 
       method: 'GET',
       headers: {
         'Access-Control-Allow-Origin': 'https://localhost:7108',
@@ -24,11 +45,20 @@ useEffect(() => {
   )
     .then((res) => res.json())
     .then((r) => {
-      setFoundUser(r)
+      setFirebaseUser(r)
     });
 }, [])
 
-console.log(foundUser);
+
+useEffect(() => {
+  if(!firebaseUser) {
+    submit()
+  }
+}, [])
+
+
+console.log(firebaseUser);
+
 
 
   return (
