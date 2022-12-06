@@ -7,6 +7,7 @@ import Cities from '../pages/Cities';
 import City from '../pages/City';
 import Profile from '../pages/Profile';
 import Shows from '../pages/Shows';
+import Show from '../pages/Show';
 
 export default function Routes({ user }) {
 
@@ -93,6 +94,7 @@ console.log(currentUser);
         <Route path="/profile" component={() => <Profile currentUser={currentUser}/>} />
         <Route path="/groups" component={() => <Groups currentUser={currentUser}/>} />
         <Route path="/shows" component={() => <Shows currentUser={currentUser}/>} />
+        <Route path="/show/:showId(\d+)" component={() => <Show />} />
         <Route exact path="/cities" component={() => <Cities currentUser={currentUser}/>} />
         <Route path="/city/:cityId(\d+)" component={() => <City />} />
         <Route path="*" component={() => <Authenticated user={user} />} />
