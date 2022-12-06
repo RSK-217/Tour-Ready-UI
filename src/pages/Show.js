@@ -21,20 +21,20 @@ export default function Show() {
         <>
         <h1 className='show-headline'>{show.showDate} - {show.venue} - {show.cityName}, {show.state} {show.country}</h1>
             <div>
-                <h4 className='show-section-title'>setlist:</h4>
+                <h5 className='show-section-title'>setlist:</h5>
                     <p className='show-section-body'>{show.setList}</p>
             </div>
             <div>
-                <h4 className='show-section-title'>show notes:</h4>
+                <h5 className='show-section-title'>show notes:</h5>
                     <p className='show-section-body'>{show.showNotes}</p>
             </div>
             <div>
-                <h4 className='show-section-title'>merch sales:</h4>
-                    <p className='show-section-body'>{show.merchSales}</p>
+                <h5 className='show-section-title'>merch sales:</h5>
+                    <p className='show-section-body'>${show.merchSales}</p>
             </div>
             <div>
-                <h4 className='show-section-title'>payout:</h4>
-                    <p className='show-section-body'>{show.payout}</p>
+                <h5 className='show-section-title'>payout:</h5>
+                    <p className='show-section-body'>${show.payout}</p>
             </div>
         </>
     )
