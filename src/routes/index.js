@@ -4,14 +4,14 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import Authenticated from '../pages/Authenticated';
 import Groups from '../pages/Groups';
 import Cities from '../pages/Cities';
+import City from '../pages/City';
 import Profile from '../pages/Profile';
 import Shows from '../pages/Shows';
 
 export default function Routes({ user }) {
 
-const [firebaseUser, setFirebaseUser] = useState({});
-const [firstRender, setFirstRender] = useState(false)
-
+const [userExists, setUserExists] = useState({});
+const [currentUser, setCurrentUser] = useState({});
 const history = useHistory()
 
 useEffect(() => {
@@ -27,10 +27,25 @@ useEffect(() => {
   )
     .then((res) => res.json())
     .then((fbUser) => {
-      setFirebaseUser(fbUser)
-      setFirstRender(true)
+      setUserExists(fbUser)
     });
 
+}, [])
+
+useEffect(() => {
+  fetch(`https://localhost:7108/api/User/GetUserByFirebaseId/${user.$.W}`,
+  {
+    method: 'GET',
+      headers: {
+        'Access-Control-Allow-Origin': 'https://localhost:7108',
+        'Content-Type': 'application/json'
+      },
+  },
+)
+    .then((res) => res.json())
+    .then((r) => {
+      setCurrentUser(r)
+    });
 }, [])
 
 const RegisterUser = (user) => {
@@ -49,34 +64,37 @@ const RegisterUser = (user) => {
   })
 }
 
-const submit = (user) => {
-const newUser = {
-  name: user.displayName,
-  email: user.email,
-  firebaseId: user.$.W,
-  image: user.photoURL
-}
-RegisterUser(newUser)
-}
+// const submit = (user) => {
+// const newUser = {
+//   name: user.displayName,
+//   email: user.email,
+//   firebaseId: user.$.W,
+//   image: user.photoURL
+// }
+// RegisterUser(newUser)
+// }
 
-useEffect(() => {
+// useEffect(() => {
   
-    submit()
+//     submit()
   
-}, [!firebaseUser])
+// }, [])
 
-console.log(firebaseUser);
+console.log(userExists);
 
-console.log(user.displayName);
+console.log(user);
+
+console.log(currentUser);
 
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={() => <Authenticated user={user} fbUser={firebaseUser}/>} />
-        <Route path="/profile" component={() => <Profile user={firebaseUser}/>} />
-        <Route path="/groups" component={() => <Groups user={firebaseUser}/>} />
-        <Route path="/shows" component={() => <Shows user={firebaseUser}/>} />
-        <Route path="/cities" component={() => <Cities user={firebaseUser}/>} />
+        <Route exact path="/" component={() => <Authenticated user={user} />} />
+        <Route path="/profile" component={() => <Profile currentUser={currentUser}/>} />
+        <Route path="/groups" component={() => <Groups currentUser={currentUser}/>} />
+        <Route path="/shows" component={() => <Shows currentUser={currentUser}/>} />
+        <Route exact path="/cities" component={() => <Cities currentUser={currentUser}/>} />
+        <Route path="/city/:cityId(\d+)" component={() => <City />} />
         <Route path="*" component={() => <Authenticated user={user} />} />
       </Switch>
     </div>
