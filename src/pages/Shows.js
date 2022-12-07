@@ -21,6 +21,7 @@ export default function Shows({ currentUser }) {
                         <Link className='show-link' to={`/show/${show.id}`}>{show.showDate} - {show.venue} - {show.cityName}, {show.state} {show.country}</Link>
                        </li>)
             }) : null } 
+            
         </>
     )
 }

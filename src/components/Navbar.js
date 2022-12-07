@@ -16,11 +16,6 @@ export const NavBar = ({user}) => {
                     </NavLink>
                     <NavLink className='nav-link'
                         active
-                        href="/profile">
-                        My Profile
-                    </NavLink>
-                    <NavLink className='nav-link'
-                        active
                         href="/groups">
                         Groups
                     </NavLink>
@@ -44,7 +39,7 @@ export const NavBar = ({user}) => {
                     <NavDropdown>
                         <NavDropdown.Item
                             eventKey="1"
-                            href="/profile"
+                            href="/home"
                         >{user.displayName}</NavDropdown.Item>
                         <NavDropdown.Divider></NavDropdown.Divider>
                         <Button className="nav-btn" onClick={signOut}>
