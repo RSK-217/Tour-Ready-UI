@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 
 
 export default function Show() {
@@ -20,6 +20,7 @@ export default function Show() {
     return (
         <>
         <h1 className='show-headline'>{show.showDate} - {show.venue} - {show.cityName}, {show.state} {show.country}</h1>
+            <Link className='edit-show-link' to={`/show/edit/${showId}`}>edit show</Link>
             <div>
                 <h5 className='show-section-title'>setlist:</h5>
                     <p className='show-section-body'>{show.setList}</p>

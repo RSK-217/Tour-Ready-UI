@@ -7,7 +7,8 @@ import Cities from '../pages/Cities';
 import City from '../pages/City';
 import Shows from '../pages/Shows';
 import Show from '../pages/Show';
-import AddShow from '../puts/AddShow';
+import EditShow from '../Puts/EditShow';
+import AddShow from '../Posts/AddShow';
 import Register from '../pages/Register';
 
 export default function Routes({ user }) {
@@ -95,6 +96,7 @@ console.log(currentUser);
         <Route path="/groups" component={() => <Groups currentUser={currentUser}/>} />
         <Route path="/shows" component={() => <Shows currentUser={currentUser}/>} />
         <Route path="/show/:showId(\d+)" component={() => <Show />} />
+        <Route path="/show/edit/:showId(\d+)/" component={() => <EditShow currentUser={currentUser} />} />
         <Route path="/show/add" component={() => <AddShow currentUser={currentUser}/>}/>
         <Route exact path="/cities" component={() => <Cities currentUser={currentUser}/>} />
         <Route path="/city/:cityId(\d+)" component={() => <City />} />
