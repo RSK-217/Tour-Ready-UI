@@ -19,17 +19,17 @@ export default function AddShow({currentUser}) {
     }
     
     const handleChange = (e) => {
-        setSelectedGroupId(e.target.value)
+        const int = parseInt(e.target.value)
+        setSelectedGroupId(int)
+        
     }
     
-    // const getGroupName = () => {
-    //     groups.map((group) => {
-    //         if(group.id === selectedGroupId){
-    //             setSelectedGroupName(group.groupName)
-    //         }})
-    //     }
-        
-        
+    const getGroupName = () => {
+        groups.map((group) => {
+            selectedGroupId === group.id ? setSelectedGroupName(group.groupName) : ''
+        })
+    }
+    
     useEffect(() => {
         if(currentUser?.hasOwnProperty("id")) { 
             getAllGroups(currentUser).then((res) => {
@@ -37,16 +37,17 @@ export default function AddShow({currentUser}) {
             })};
         }, [])
         
-    // useEffect(() => {
-    //     getGroupName()
-    //     }, [selectedGroupId])
+    useEffect(() => {
+        getGroupName()
+            
+        }, [selectedGroupId])
 
         const saveShow = async (e) => {
         e.preventDefault()
         const newShow = {
             userId: currentUser.id,
             groupId: selectedGroupId,
-            groupName: '',
+            groupName: selectedGroupName,
             venue: show.venue,
             showDate: show.showDate,
             cityName: show.cityName,
@@ -68,7 +69,7 @@ export default function AddShow({currentUser}) {
             body: JSON.stringify(newShow)
         }
 
-        const response = await fetch(`http://localhost:7108/api/Show`, fetchOptions);
+        const response = await fetch('https://localhost:7108/api/Show', fetchOptions);
             await response.json();
             history.push('/shows');
     }
@@ -79,6 +80,7 @@ export default function AddShow({currentUser}) {
             <fieldset>
                 <div className="form-group">
                 <select value={selectedGroupId} onChange={handleChange}>
+                            <option value=''>select a group</option>
                     {groups.map((group) => {
                         return (
                             <option key={group.id} value={group.id}>{group.groupName}</option>
