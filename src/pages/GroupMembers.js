@@ -1,7 +1,11 @@
 import React, {useState, useEffect} from "react";
+import { useParams } from "react-router-dom";
 
 export default function GroupMembers({group}) {
     const [groupMembers, setGroupMembers] = useState([]);
+    const memberId = useParams();
+
+    console.log(memberId)
 
     useEffect(() => {
         fetch(`https://localhost:7108/api/GroupMember/GetAllMembersByGroupId/${group.id}`)

@@ -5,16 +5,19 @@ import Authenticated from '../pages/Authenticated';
 import Groups from '../pages/Groups';
 import Cities from '../pages/Cities';
 import City from '../pages/City';
+import AddCity from '../Posts/AddCity';
 import Shows from '../pages/Shows';
 import Show from '../pages/Show';
 import EditShow from '../Puts/EditShow';
 import AddShow from '../Posts/AddShow';
 import Register from '../pages/Register';
+import { getGroupById } from "../api/GroupData";
 
 export default function Routes({ user }) {
 
 const [userExists, setUserExists] = useState({});
 const [currentUser, setCurrentUser] = useState({});
+
 const history = useHistory()
 
 useEffect(() => {
@@ -82,6 +85,7 @@ useEffect(() => {
   
 // }, [])
 
+
 console.log(userExists);
 
 console.log(user);
@@ -94,12 +98,15 @@ console.log(currentUser);
         <Route exact path="/" component={() => <Authenticated user={user} currentUser={currentUser}/>} />
         {/* <Route path="/register" component={() => <Register user={user}/>} /> */}
         <Route path="/groups" component={() => <Groups currentUser={currentUser}/>} />
+        
         <Route path="/shows" component={() => <Shows currentUser={currentUser}/>} />
         <Route path="/show/:showId(\d+)" component={() => <Show />} />
-        <Route path="/show/edit/:showId(\d+)/" component={() => <EditShow currentUser={currentUser} />} />
+        <Route path="/show/edit/:showId(\d+)" component={() => <EditShow currentUser={currentUser} />} />
         <Route path="/show/add" component={() => <AddShow currentUser={currentUser}/>}/>
+        
         <Route exact path="/cities" component={() => <Cities currentUser={currentUser}/>} />
         <Route path="/city/:cityId(\d+)" component={() => <City />} />
+        <Route path="/city/add" component={() => <AddCity currentUser={currentUser}/>}/>
         <Route path="*" component={() => <Authenticated user={user} currentUser={currentUser}/>} />
       </Switch>
     </div>

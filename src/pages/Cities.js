@@ -23,6 +23,8 @@ return (
                         <Link className='city-link' to={`/city/${city.id}`}>{city.cityName}, {city.state} - {city.country}</Link>
                        </li>)
             }) : null } 
+
+            <Link className='add-city-link' to='/city/add'>+ add a city</Link>
         </>
     )
 }

@@ -29,24 +29,12 @@ export const NavBar = ({user}) => {
                         href="/cities">
                         Cities
                     </NavLink>
-                    <div>
-                    <img
-                        href="#"
-                        className="profilePic"
-                        src={user.$.photoURL}
-                    ></img>
-                    </div>
-                    <NavDropdown>
-                        <NavDropdown.Item
-                            eventKey="1"
-                            href="/home"
-                        >{user.displayName}</NavDropdown.Item>
-                        <NavDropdown.Divider></NavDropdown.Divider>
-                        <Button className="nav-btn" onClick={signOut}>
-                            Sign Out
-                        </Button>
-                    </NavDropdown>
-                    </div>
+                    <NavLink className='nav-link'
+                        active
+                        onClick={signOut}>
+                        Sign Out
+                    </NavLink>
+                </div>
             </Nav>
         
    )
