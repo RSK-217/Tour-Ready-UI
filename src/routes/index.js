@@ -97,7 +97,6 @@ console.log(currentUser);
       <Switch>
         <Route exact path="/" component={() => <Authenticated user={user} currentUser={currentUser}/>} />
         {/* <Route path="/register" component={() => <Register user={user}/>} /> */}
-        <Route path="/groups" component={() => <Groups currentUser={currentUser}/>} />
         
         <Route path="/shows" component={() => <Shows currentUser={currentUser}/>} />
         <Route path="/show/:showId(\d+)" component={() => <Show />} />

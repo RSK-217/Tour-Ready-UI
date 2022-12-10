@@ -6,18 +6,13 @@ import { Nav, NavItem, NavLink, NavDropdown, Button } from "react-bootstrap";
 export const NavBar = ({user}) => {
    return (
         
-            <Nav className="nav">
-                
+            <Nav className="navbar">
+                <h3>Tour Ready</h3>
                 <div className="nav navbar-expand-lg">
                     <NavLink className='nav-link'
                         active
                         href="/home">
                         Home
-                    </NavLink>
-                    <NavLink className='nav-link'
-                        active
-                        href="/groups">
-                        Groups
                     </NavLink>
                     <NavLink className='nav-link'
                         active

@@ -1,29 +1,29 @@
 import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 import { getAllGroups } from "../api/UserData";
-import GroupMembers from "./GroupMembers";
+import AddGroup from "../Posts/AddGroup";
 
-export default function Groups({ currentUser }) {
-    const [groups, setGroups] = useState([]);
-    
+export default function Groups({ groups, currentUser }) {
+    const [clicked, setClicked] = useState(false)
 
-    useEffect(() => {
-        if(currentUser?.hasOwnProperty("id")) { 
-         getAllGroups(currentUser).then((res) => {
-         setGroups(res);
-        })};
- }, [])
-
+    const handleChange = () => {
+        setClicked(true)
+    }
+    console.log(groups)
      return (
         <>
-            <h1>Groups</h1>
+            <h1>Groups</h1> 
+            <button className="add-group-btn" type="button" onClick={handleChange} >Add Group</button>
+            {clicked === true ? <AddGroup currentUser={currentUser}/> : null}
             {groups ? groups.map((group) => {
                 return (
                 <div key={group.id}>
-                    <h3>{group.groupName}</h3>
-                    <GroupMembers group={group}/>
+                    <h6>* {group.groupName}</h6>
+                    
+                    <button type="button">Edit Group</button>
                 </div>
             )}) : null } 
+            
         </>
     )
 }
