@@ -7,7 +7,7 @@ export default function AddCity({currentUser}) {
     const history = useHistory();
 
     const cancelForm = () => {
-        history.push('/shows')
+        history.push('/cities')
     }
 
     const saveCity = async (e) => {
@@ -38,7 +38,7 @@ export default function AddCity({currentUser}) {
 
     return (
         <form className="add-city-form">
-            <h2 className="add-city-title">add a show</h2>
+            <h2 className="add-city-title">add a city</h2>
             <fieldset>
                 <div className="form-group">
                     <input

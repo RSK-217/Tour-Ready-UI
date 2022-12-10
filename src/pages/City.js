@@ -21,14 +21,17 @@ export default function City() {
     return (
         <>
         <h1>{city.cityName}, {city.state} - {city.country}</h1>
-            <div className="city-notes">
-                <li>{city.cityNotes}</li>   
-            </div>
             <div className="city-people">
+                <h6>People</h6>
                 <li>{city.people}</li>   
             </div>
             <div className="city-places">
+                <h6>Places</h6>
                 <li>{city.places}</li>   
+            </div>
+            <div className="city-notes">
+                <h6>Notes</h6>
+                <li>{city.cityNotes}</li>   
             </div>
         </>
     )
