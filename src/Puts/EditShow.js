@@ -53,6 +53,7 @@ export default function EditShow({currentUser}) {
     const UpdateShow = (e) => {
         e.preventDefault()
         const newShow = {
+            id: show.id,
             userId: show.userId,
             groupId: selectedGroupId,
             groupName: selectedGroupName,

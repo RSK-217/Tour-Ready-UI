@@ -15,7 +15,7 @@ export default function Show() {
         })
  }, [showId])
 
-
+console.log(showId)
 
     return (
         <>
