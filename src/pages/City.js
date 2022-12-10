@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from "react";
-import {useParams} from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 
 export default function City() {
     const [city, setCity] = useState({});
     const { cityId } = useParams()
 
-    console.log(cityId)
     useEffect(() => {
         fetch(`https://localhost:7108/api/City/GetCityById/${cityId}`)
         .then(response => response.json())
@@ -20,7 +19,8 @@ export default function City() {
 
     return (
         <>
-        <h1>{city.cityName}, {city.state} - {city.country}</h1>
+        <h1 className="city-header">{city.cityName}, {city.state} - {city.country}</h1>
+        <Link className='edit-city-link' to={`/city/edit/${cityId}`}>edit city</Link>
             <div className="city-people">
                 <h6>People</h6>
                 <li>{city.people}</li>   

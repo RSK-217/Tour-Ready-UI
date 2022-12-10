@@ -6,6 +6,7 @@ import Groups from '../pages/Groups';
 import Cities from '../pages/Cities';
 import City from '../pages/City';
 import AddCity from '../Posts/AddCity';
+import EditCity from '../Puts/EditCity';
 import Shows from '../pages/Shows';
 import Show from '../pages/Show';
 import EditShow from '../Puts/EditShow';
@@ -106,6 +107,7 @@ console.log(currentUser);
         <Route exact path="/cities" component={() => <Cities currentUser={currentUser}/>} />
         <Route path="/city/:cityId(\d+)" component={() => <City />} />
         <Route path="/city/add" component={() => <AddCity currentUser={currentUser}/>}/>
+        <Route path="/city/edit/:cityId(\d+)" component={() => <EditCity currentUser={currentUser} />} />
         <Route path="*" component={() => <Authenticated user={user} currentUser={currentUser}/>} />
       </Switch>
     </div>

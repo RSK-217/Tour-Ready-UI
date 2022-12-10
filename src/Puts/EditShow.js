@@ -82,38 +82,6 @@ export default function EditShow({currentUser}) {
         })
     }
 
-    // const UpdateShow = (e) => {
-    //     e.preventDefault()
-    //     const newShow = {
-    //         userId: show.userId,
-    //         groupId: selectedGroupId,
-    //         groupName: selectedGroupName,
-    //         venue: show.venue,
-    //         showDate: show.showDate,
-    //         cityName: show.cityName,
-    //         state: show.state,
-    //         country: show.country,
-    //         setList: show.setList,
-    //         showNotes: show.showNotes,
-    //         merchSales: show.merchSales,
-    //         payout: show.payout,
-    //         isFavorite: show.isFavorite
-    //     }
-        
-    //         const fetchOptions = {
-    //             method: "PUT",
-    //             headers: {
-    //                 'Access-Control-Allow-Origin': 'https://localhost:7108',
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(newShow)   
-    //         };
-    //         const response = fetch(`https://localhost:7108/api/Show/${showId}`, fetchOptions);
-    //         const data = response.json();
-    //         console.log(data);
-    //     }
-
-
 
     return (
         <form className="edit-show-form">
@@ -212,7 +180,7 @@ export default function EditShow({currentUser}) {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <input
+                    <textarea
                         onChange={
                             (e) => {
                                 const copy = { ...show }
@@ -229,7 +197,7 @@ export default function EditShow({currentUser}) {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <input
+                    <textarea
                         onChange={
                             (e) => {
                                 const copy = { ...show }
