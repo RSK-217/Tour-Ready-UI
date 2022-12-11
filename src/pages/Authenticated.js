@@ -4,7 +4,6 @@ import { getAllGroups } from "../api/UserData";
 import Groups from "./Groups";
 
 export default function Authenticated({ user, currentUser }) {
-  
   const [groups, setGroups] = useState([]);
 
     useEffect(() => {

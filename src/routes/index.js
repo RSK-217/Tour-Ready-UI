@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Authenticated from '../pages/Authenticated';
-import Groups from '../pages/Groups';
+import EditGroup from '../Puts/EditGroup';
 import Cities from '../pages/Cities';
 import City from '../pages/City';
 import AddCity from '../Posts/AddCity';
@@ -98,6 +98,7 @@ console.log(currentUser);
       <Switch>
         <Route exact path="/" component={() => <Authenticated user={user} currentUser={currentUser}/>} />
         {/* <Route path="/register" component={() => <Register user={user}/>} /> */}
+        <Route path="/group/edit/:groupId(\d+)" component={() => <EditGroup />} />
         
         <Route path="/shows" component={() => <Shows currentUser={currentUser}/>} />
         <Route path="/show/:showId(\d+)" component={() => <Show />} />

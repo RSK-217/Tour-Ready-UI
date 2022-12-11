@@ -49,6 +49,13 @@ export default function EditShow({currentUser}) {
         })
  }, [showId])
 
+ const Delete = () => {
+    fetch(`https://localhost:7108/api/Show/${showId}`, {
+    method: "DELETE"
+    })
+    .then(history.push("/shows"))
+}
+
 
     const UpdateShow = (e) => {
         e.preventDefault()
@@ -252,6 +259,9 @@ export default function EditShow({currentUser}) {
                 </button>&nbsp;
                 <button className="show-btn" onClick={cancelForm}>
                     Cancel
+                </button>&nbsp;
+                <button className="show-btn" onClick={Delete}>
+                    Delete
                 </button>
             </section>
         </form>

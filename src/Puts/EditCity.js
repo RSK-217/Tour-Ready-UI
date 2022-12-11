@@ -22,6 +22,12 @@ export default function EditCity({ currentUser }) {
         })
  }, [cityId])
 
+ const Delete = () => {
+    fetch(`https://localhost:7108/api/City/${cityId}`, {
+    method: "DELETE"
+    })
+    .then(history.push("/cities"))
+}
 
  const UpdateCity = (e) => {
     e.preventDefault()
@@ -31,8 +37,8 @@ export default function EditCity({ currentUser }) {
         cityName: city.cityName,
         state: city.state,
         country: city.country,
-        people: city.people ,
-        places: city.places ,
+        people: city.people,
+        places: city.places,
         cityNotes: city.cityNotes 
     }
     
@@ -158,6 +164,9 @@ export default function EditCity({ currentUser }) {
                 </button>&nbsp;
                 <button className="city-btn" onClick={cancelForm}>
                     Cancel
+                </button>&nbsp;
+                <button className="city-btn" onClick={Delete}>
+                    Delete
                 </button>
             </section>
         </form>
