@@ -1,6 +1,6 @@
 // index for router
 import React, {useState, useEffect} from 'react';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import Authenticated from '../pages/Authenticated';
 import EditGroup from '../Puts/EditGroup';
 import Cities from '../pages/Cities';
@@ -15,11 +15,12 @@ import Register from '../pages/Register';
 import { getGroupById } from "../api/GroupData";
 
 export default function Routes({ user }) {
-
-const [userExists, setUserExists] = useState({});
-const [currentUser, setCurrentUser] = useState({});
-
-const history = useHistory()
+  
+  const history = useHistory()
+  
+  const [userExists, setUserExists] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
+  
 
 useEffect(() => {
   fetch(`https://localhost:7108/api/User/CheckIfUserExists/${user.$.W}`,
@@ -34,12 +35,22 @@ useEffect(() => {
     .then((res) => res.json())
     .then((fbUser) => {
       setUserExists(fbUser)
-    });
-
+    })
 }, [])
 
-useEffect(() => {
-  fetch(`https://localhost:7108/api/User/GetUserByFirebaseId/${user.$.W}`,
+useEffect((user) => {
+  if(userExists === true) {
+    GetUser(user)
+  } else if (userExists === false){
+    history.push("/register")
+    history.go()
+  } else {
+    history.push("/")
+  }
+}, [])
+
+const GetUser = () => {
+  fetch(`https://localhost:7108/api/User/GetUserByFirebaseId/${user.uid}`,
   {
   method: 'GET',
   headers: {
@@ -52,40 +63,7 @@ useEffect(() => {
     .then((r) => {
       setCurrentUser(r)
     });
-}, [])
-
-// const RegisterUser = (user) => {
-//   const fetchOptions = {
-//     method: 'POST',
-//     headers: {
-//       'Access-Control-Allow-Origin': 'https://localhost:7108',
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(user)
-//   }
-//   return fetch('https://localhost:7108/api/User/RegisterUser', fetchOptions)
-//   .then(res => res.json())
-//   .then(() => {
-//     history.push('/home')
-//   })
-// }
-
-// const submit = (user) => {
-// const newUser = {
-//   name: user.displayName,
-//   email: user.email,
-//   firebaseId: user.$.W,
-//   image: user.photoURL
-// }
-// RegisterUser(newUser)
-// }
-
-// useEffect(() => {
-  
-//     submit()
-  
-// }, [])
-
+}
 
 console.log(userExists);
 
@@ -97,7 +75,7 @@ console.log(currentUser);
     <div>
       <Switch>
         <Route exact path="/" component={() => <Authenticated user={user} currentUser={currentUser}/>} />
-        {/* <Route path="/register" component={() => <Register user={user}/>} /> */}
+        <Route path="/register" component={() => <Register user={user}/>} />
         <Route path="/group/edit/:groupId(\d+)" component={() => <EditGroup />} />
         
         <Route path="/shows" component={() => <Shows currentUser={currentUser}/>} />
@@ -114,3 +92,19 @@ console.log(currentUser);
     </div>
   );
 }
+
+// useEffect(() => {
+//   fetch(`https://localhost:7108/api/User/CheckIfUserExists/${user.$.W}`,
+//   {
+//   method: 'GET',
+//   headers: {
+//     'Access-Control-Allow-Origin': 'https://localhost:7108',
+//     'Content-Type': 'application/json'
+//   },
+// },
+// )
+//     .then((res) => res.json())
+//     .then((fbUser) => {
+//       setUserExists(fbUser)
+//     })
+// }, [])
