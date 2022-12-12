@@ -1,6 +1,5 @@
 import React, { useState, useEffect }from "react";
-import { useHistory } from 'react-router-dom'
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 export default function EditGroup() {
     const [group, setGroup] = useState({})
@@ -25,7 +24,8 @@ export default function EditGroup() {
         fetch(`https://localhost:7108/api/Group/${groupId}`, {
         method: "DELETE"
         })
-        .then(history.push("*"))
+        .then(history.push("/"))
+        .then(history.go())
     }
 
 

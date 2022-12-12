@@ -10,7 +10,7 @@ export default function EditCity({ currentUser }) {
     const history = useHistory();
 
     const cancelForm = () => {
-        history.push('/cities')
+        history.push(`/city/${cityId}`)
     }
 
     useEffect(() => {
@@ -27,6 +27,7 @@ export default function EditCity({ currentUser }) {
     method: "DELETE"
     })
     .then(history.push("/cities"))
+    .then(history.go())
 }
 
  const UpdateCity = (e) => {

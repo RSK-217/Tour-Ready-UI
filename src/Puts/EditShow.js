@@ -13,7 +13,7 @@ export default function EditShow({currentUser}) {
     const history = useHistory()
     
     const cancelForm = () => {
-        history.push('/shows')
+        history.push(`/show/${showId}`)
     }
     
     const handleChange = (e) => {
@@ -54,6 +54,7 @@ export default function EditShow({currentUser}) {
     method: "DELETE"
     })
     .then(history.push("/shows"))
+    .then(history.go())
 }
 
 
