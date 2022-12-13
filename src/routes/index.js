@@ -1,6 +1,6 @@
 // index for router
 import React, {useState, useEffect} from 'react';
-import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Authenticated from '../pages/Authenticated';
 import EditGroup from '../Puts/EditGroup';
 import Cities from '../pages/Cities';
@@ -15,15 +15,13 @@ import Register from '../pages/Register';
 import { getGroupById } from "../api/GroupData";
 
 export default function Routes({ user }) {
-  
-  const history = useHistory()
-  
   const [userExists, setUserExists] = useState({});
   const [currentUser, setCurrentUser] = useState({});
-  
 
+  const history = useHistory()
+    
 useEffect(() => {
-  fetch(`https://localhost:7108/api/User/CheckIfUserExists/${user.$.W}`,
+  fetch(`https://localhost:7108/api/User/CheckIfUserExists/${user.uid}`,
   {
   method: 'GET',
   headers: {
@@ -34,19 +32,12 @@ useEffect(() => {
 )
     .then((res) => res.json())
     .then((fbUser) => {
-      setUserExists(fbUser)
+      fbUser === true ? setUserExists(fbUser) : RegisterUser()
     })
 }, [])
 
-useEffect((user) => {
-  if(userExists === true) {
+useEffect(() => {
     GetUser(user)
-  } else if (userExists === false){
-    history.push("/register")
-    history.go()
-  } else {
-    history.push("/")
-  }
 }, [])
 
 const GetUser = () => {
@@ -61,15 +52,36 @@ const GetUser = () => {
 )
     .then((res) => res.json())
     .then((r) => {
-      setCurrentUser(r)
+      setCurrentUser(r) 
     });
 }
 
+const RegisterUser = () => {
+  console.log(user);
+  const newUser = {
+  name: user.displayName,
+  email: user.email,
+  firebaseId: user.uid,
+  image: user.photoURL
+}
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Access-Control-Allow-Origin': 'https://localhost:7108',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newUser)
+  }
+  return fetch('https://localhost:7108/api/User/RegisterUser', fetchOptions)
+  .then(res => res.json())
+  .then(() => {
+    history.push('/')
+  })
+}
+
 console.log(userExists);
-
-console.log(user);
-
 console.log(currentUser);
+
 
   return (
     <div>
