@@ -15,14 +15,13 @@ import Register from '../pages/Register';
 import { getGroupById } from "../api/GroupData";
 
 export default function Routes({ user }) {
+  const [userExists, setUserExists] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
 
-const [userExists, setUserExists] = useState({});
-const [currentUser, setCurrentUser] = useState({});
-
-const history = useHistory()
-
+  const history = useHistory()
+    
 useEffect(() => {
-  fetch(`https://localhost:7108/api/User/CheckIfUserExists/${user.$.W}`,
+  fetch(`https://localhost:7108/api/User/CheckIfUserExists/${user.uid}`,
   {
   method: 'GET',
   headers: {
@@ -33,13 +32,16 @@ useEffect(() => {
 )
     .then((res) => res.json())
     .then((fbUser) => {
-      setUserExists(fbUser)
-    });
-
+      fbUser === true ? setUserExists(fbUser) : RegisterUser()
+    })
 }, [])
 
 useEffect(() => {
-  fetch(`https://localhost:7108/api/User/GetUserByFirebaseId/${user.$.W}`,
+    GetUser(user)
+}, [])
+
+const GetUser = () => {
+  fetch(`https://localhost:7108/api/User/GetUserByFirebaseId/${user.uid}`,
   {
   method: 'GET',
   headers: {
@@ -50,54 +52,42 @@ useEffect(() => {
 )
     .then((res) => res.json())
     .then((r) => {
-      setCurrentUser(r)
+      setCurrentUser(r) 
     });
-}, [])
+}
 
-// const RegisterUser = (user) => {
-//   const fetchOptions = {
-//     method: 'POST',
-//     headers: {
-//       'Access-Control-Allow-Origin': 'https://localhost:7108',
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(user)
-//   }
-//   return fetch('https://localhost:7108/api/User/RegisterUser', fetchOptions)
-//   .then(res => res.json())
-//   .then(() => {
-//     history.push('/home')
-//   })
-// }
-
-// const submit = (user) => {
-// const newUser = {
-//   name: user.displayName,
-//   email: user.email,
-//   firebaseId: user.$.W,
-//   image: user.photoURL
-// }
-// RegisterUser(newUser)
-// }
-
-// useEffect(() => {
-  
-//     submit()
-  
-// }, [])
-
+const RegisterUser = () => {
+  console.log(user);
+  const newUser = {
+  name: user.displayName,
+  email: user.email,
+  firebaseId: user.uid,
+  image: user.photoURL
+}
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Access-Control-Allow-Origin': 'https://localhost:7108',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newUser)
+  }
+  return fetch('https://localhost:7108/api/User/RegisterUser', fetchOptions)
+  .then(res => res.json())
+  .then(() => {
+    history.push('/')
+  })
+}
 
 console.log(userExists);
-
-console.log(user);
-
 console.log(currentUser);
+
 
   return (
     <div>
       <Switch>
         <Route exact path="/" component={() => <Authenticated user={user} currentUser={currentUser}/>} />
-        {/* <Route path="/register" component={() => <Register user={user}/>} /> */}
+        <Route path="/register" component={() => <Register user={user}/>} />
         <Route path="/group/edit/:groupId(\d+)" component={() => <EditGroup />} />
         
         <Route path="/shows" component={() => <Shows currentUser={currentUser}/>} />
@@ -114,3 +104,19 @@ console.log(currentUser);
     </div>
   );
 }
+
+// useEffect(() => {
+//   fetch(`https://localhost:7108/api/User/CheckIfUserExists/${user.$.W}`,
+//   {
+//   method: 'GET',
+//   headers: {
+//     'Access-Control-Allow-Origin': 'https://localhost:7108',
+//     'Content-Type': 'application/json'
+//   },
+// },
+// )
+//     .then((res) => res.json())
+//     .then((fbUser) => {
+//       setUserExists(fbUser)
+//     })
+// }, [])
