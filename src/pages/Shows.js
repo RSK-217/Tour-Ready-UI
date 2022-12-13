@@ -13,6 +13,8 @@ export default function Shows({ currentUser }) {
          setShows(res);
         })};
  }, [])
+
+ console.log(shows)
     
      return (
         <>
