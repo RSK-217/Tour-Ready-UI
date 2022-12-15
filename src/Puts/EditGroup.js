@@ -1,7 +1,7 @@
 import React, { useState, useEffect }from "react";
 import { useParams, useHistory } from "react-router-dom";
 
-export default function EditGroup() {
+export default function EditGroup({setClickEdit}) {
     const [group, setGroup] = useState({})
 
     const { groupId } = useParams();
@@ -9,7 +9,7 @@ export default function EditGroup() {
     const history = useHistory();
 
     const cancelForm = () => {
-        history.push('/')
+        setClickEdit(false)
     }
 
     useEffect(() => {
@@ -64,7 +64,7 @@ export default function EditGroup() {
                                 copy.groupName = e.target.value
                                 setGroup(copy)
                             }}
-                        required autoFocus
+                        autoFocus
                         type="text"
                         className="form-control"
                         value={group.groupName}

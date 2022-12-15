@@ -5,32 +5,32 @@ import EditGroup from "../Puts/EditGroup";
 
 export default function Groups({ groups, currentUser }) {
     const [clicked, setClicked] = useState(false)
+    const [clickEdit, setClickEdit] = useState(false)
     const [reset, setReset] = useState([])
-    // const [editClick, setEditClick] = useState({})
 
     const handleChange = () => {
         setClicked(true)
     }
 
-    // console.log(editClick)
-    
-    // const renderGroupEdit = () => {
-    //     <EditGroup />
-    // }
+    const editChange = () => {
+        setClickEdit(true)
+    }
 
+    console.log(clicked)
   
      return (
         <>
             <h1>Groups</h1> 
             <button className="add-group-btn" type="button" onClick={handleChange} >Add Group</button>
-            {clicked === true ? <AddGroup currentUser={currentUser} /> : null}
+            {clicked === true ? <AddGroup currentUser={currentUser} setClicked={setClicked}/> : null}
             {groups ? groups.map((group) => {
                 return (
                 <div key={group.id}>
                     <h6>* {group.groupName}</h6>
                     
-                    {/* <button className="edit-group-btn" type="button">Edit Group</button> */}
-                    <Link className="edit-group-link" to={`/group/edit/${group.id}`}>edit</Link>
+                    <button value={group.id} className="edit-group-btn" type="button" onClick={editChange}>Edit Group</button>
+                    {clickEdit === true ? <EditGroup setClickEdit={setClickEdit}/> : null}
+                    {/* <Link className="edit-group-link" to={`/group/edit/${group.id}`}>edit</Link> */}
                 </div>
             )}) : null }
             

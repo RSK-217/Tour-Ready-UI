@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useHistory } from 'react-router-dom';
 
-export default function AddGroup({currentUser}) {
+export default function AddGroup({currentUser, setClicked}) {
     const [group, setGroup] = useState();
     
     const history = useHistory();
 
     const cancelForm = () => {
-        history.push('/')
+        setClicked(false)
     }
 
     const saveGroup = async (e) => {
@@ -43,7 +43,7 @@ export default function AddGroup({currentUser}) {
                                 copy.groupName = e.target.value
                                 setGroup(copy)
                             }}
-                        required autoFocus
+                        autoFocus
                         type="text"
                         className="form-control"
                         placeholder="group name"
