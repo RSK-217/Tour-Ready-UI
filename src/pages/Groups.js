@@ -12,11 +12,9 @@ export default function Groups({ groups, currentUser }) {
         setClicked(true)
     }
 
-    const editChange = () => {
-        setClickEdit(true)
-    }
-
-    console.log(clicked)
+    // const editChange = (e) => {
+    //    e.target.value === 1 ? setClickEdit(true) : null
+    // }
   
      return (
         <>
@@ -28,9 +26,9 @@ export default function Groups({ groups, currentUser }) {
                 <div key={group.id}>
                     <h6>* {group.groupName}</h6>
                     
-                    <button value={group.id} className="edit-group-btn" type="button" onClick={editChange}>Edit Group</button>
-                    {clickEdit === true ? <EditGroup setClickEdit={setClickEdit}/> : null}
-                    {/* <Link className="edit-group-link" to={`/group/edit/${group.id}`}>edit</Link> */}
+                    {/* <button value={group.id} key={group.id} className="edit-group-btn" type="button" onClick={editChange}>Edit Group</button> */}
+                    
+                    <Link className="edit-group-link" to={`/group/edit/${group.id}`}>edit</Link>
                 </div>
             )}) : null }
             

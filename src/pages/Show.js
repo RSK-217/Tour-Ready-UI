@@ -6,7 +6,6 @@ export default function Show() {
     const [show, setShow] = useState({});
     const { showId } = useParams()
 
-
     useEffect(() => {
         fetch(`https://localhost:7108/api/Show/GetShowById/${showId}`)
         .then(response => response.json())
@@ -37,6 +36,7 @@ console.log(showId)
                 <h5 className='show-section-title'>payout:</h5>
                     <p className='show-section-body'>${show.payout}</p>
             </div>
+            <Link className="back-to-shows" to="/shows">back</Link>
         </>
     )
 

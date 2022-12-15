@@ -1,7 +1,7 @@
 import React, { useState, useEffect }from "react";
 import { useParams, useHistory } from "react-router-dom";
 
-export default function EditGroup({setClickEdit}) {
+export default function EditGroup() {
     const [group, setGroup] = useState({})
 
     const { groupId } = useParams();
@@ -9,7 +9,7 @@ export default function EditGroup({setClickEdit}) {
     const history = useHistory();
 
     const cancelForm = () => {
-        setClickEdit(false)
+        history.push("/")
     }
 
     useEffect(() => {

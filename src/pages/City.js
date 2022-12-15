@@ -33,6 +33,7 @@ export default function City() {
                 <h6>Notes</h6>
                 <li>{city.cityNotes}</li>   
             </div>
+            <Link className="back-to-cities" to="/cities">back</Link>
         </>
     )
 
