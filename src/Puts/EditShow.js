@@ -6,8 +6,7 @@ import { useParams } from "react-router-dom";
 export default function EditShow({currentUser}) {
     const [show, setShow] = useState({});
     const [groups, setGroups] = useState([]);
-    const [selectedGroupId, setSelectedGroupId] = useState({});
-    const [selectedGroupName, setSelectedGroupName] = useState('');
+    const [currentGroup, setCurrentGroup] = useState({})
     const { showId } = useParams()
     
     const history = useHistory()
@@ -18,20 +17,19 @@ export default function EditShow({currentUser}) {
     
     const handleChange = (e) => {
         const int = parseInt(e.target.value)
-        setSelectedGroupId(int)   
-    }
-    
-    const getGroupName = () => {
         groups.map((group) => {
-            selectedGroupId === group.id ? setSelectedGroupName(group.groupName) : ''
+            group.id === int ? setCurrentGroup(group) : null
         })
+      return currentGroup  
     }
-    
     
     useEffect(() => {
-        getGroupName()
-    }, [selectedGroupId])
+        groups.map((group) => {
+            group.id === show.groupId ? setCurrentGroup(group) : null
+        })
+    },[show])
 
+    console.log(currentGroup)
     
     useEffect(() => {
         if(currentUser?.hasOwnProperty("id")) { 
@@ -58,13 +56,14 @@ export default function EditShow({currentUser}) {
 }
 
 console.log(show)
+
     const UpdateShow = (e) => {
         e.preventDefault()
         const newShow = {
             id: show.id,
             userId: show.userId,
-            groupId: selectedGroupId,
-            groupName: selectedGroupName,
+            groupId: currentGroup.id,
+            groupName: currentGroup.groupName,
             venue: show.venue,
             showDate: show.showDate,
             cityName: show.cityName,
@@ -96,11 +95,15 @@ console.log(show)
             <h2 className="edit-show-title">edit a show</h2>
             <fieldset>
                 <div className="form-group">
-                <select value={selectedGroupId} onChange={handleChange}>
-                            <option value={show.groupName}>{show.groupName}</option>
+                <select className="edit-show-group" onChange={handleChange}>
+                            <option value={currentGroup.groupName}>{currentGroup.groupName}</option>
+                            
                     {groups.map((group) => {
                         return (
-                            <option key={group.id} value={group.id}>{group.groupName}</option>
+                            <>
+                            {group.id !== currentGroup.id ?
+                            <option key={group.id} value={group.id}>{group.groupName}</option> : null}
+                            </>
                         )
                     })}
                 </select>
