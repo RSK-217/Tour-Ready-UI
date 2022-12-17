@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useParams, Link} from 'react-router-dom';
+import Moment from 'moment';
 
 
 export default function Show() {
@@ -14,11 +15,16 @@ export default function Show() {
         })
  }, [showId])
 
+const formatDate = Moment(show.showDate).format('MM-DD-YYYY')
+
+console.log(formatDate)
+
+
 console.log(showId)
 
     return (
         <>
-        <h1 className='show-headline'>{show.showDate} - {show.venue} - {show.cityName}, {show.state} {show.country}</h1>
+        <h1 className='show-headline'>{formatDate} - {show.venue} - {show.cityName}, {show.state} {show.country}</h1>
             <Link className='edit-show-link' to={`/show/edit/${showId}`}>edit show</Link>
             <div>
                 <h5 className='show-section-title'>setlist:</h5>
