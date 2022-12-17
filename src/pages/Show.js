@@ -17,10 +17,7 @@ export default function Show() {
 
 const formatDate = Moment(show.showDate).format('MM-DD-YYYY')
 
-console.log(formatDate)
-
-
-console.log(showId)
+console.log(show)
 
     return (
         <>
