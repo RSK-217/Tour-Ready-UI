@@ -1,10 +1,12 @@
 import React, { useState, useEffect }from "react";
-import { useHistory } from 'react-router-dom';
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from 'react-router-dom';
+import {Modal, Button} from 'react-bootstrap';
 
 export default function EditCity({ currentUser }) {
-    const [city, setCity] = useState({})
-
+    const [city, setCity] = useState({});
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const { cityId } = useParams();
 
     const history = useHistory();
@@ -58,6 +60,7 @@ export default function EditCity({ currentUser }) {
 
 
     return (
+        <>
         <form className="edit-city-form">
             <h2 className="edit-city-title">edit a city</h2>
             <fieldset>
@@ -166,11 +169,26 @@ export default function EditCity({ currentUser }) {
                 <button className="city-btn" onClick={cancelForm}>
                     Cancel
                 </button>&nbsp;
-                <button className="city-btn" onClick={Delete}>
+                <button className="city-btn" onClick={handleShow}>
                     Delete
                 </button>
             </section>
         </form>
+        <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete City</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this city?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={Delete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      </>
     )
 
 }
