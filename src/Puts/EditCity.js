@@ -178,7 +178,7 @@ export default function EditCity({ currentUser }) {
         <Modal.Header closeButton>
           <Modal.Title>Delete City</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this city?</Modal.Body>
+        <Modal.Body>Are you sure you want to delete this city</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close

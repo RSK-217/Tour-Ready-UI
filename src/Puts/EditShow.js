@@ -2,11 +2,15 @@ import React, { useState, useEffect }from "react";
 import { useHistory } from 'react-router-dom'
 import { getAllGroups } from "../api/UserData";
 import { useParams } from "react-router-dom";
+import {Modal, Button} from 'react-bootstrap';
 
 export default function EditShow({currentUser}) {
     const [show, setShow] = useState({});
     const [groups, setGroups] = useState([]);
-    const [currentGroup, setCurrentGroup] = useState({})
+    const [currentGroup, setCurrentGroup] = useState({});
+    const [showModal, setShowModal] = useState(false);
+    const handleClose = () => setShowModal(false);
+    const handleShow = () => setShowModal(true);
     const { showId } = useParams()
     
     const history = useHistory()
@@ -91,6 +95,7 @@ console.log(show)
 
 
     return (
+        <>
         <form className="edit-show-form">
             <h2 className="edit-show-title">edit a show</h2>
             <fieldset>
@@ -118,7 +123,7 @@ console.log(show)
                                 copy.venue = e.target.value
                                 setShow(copy)
                             }}
-                        required autoFocus
+                        autoFocus
                         type="text"
                         className="form-control"
                         value={show.venue || ""}
@@ -134,7 +139,7 @@ console.log(show)
                                 copy.showDate = e.target.value
                                 setShow(copy)
                             }}
-                        required autoFocus
+                        autoFocus
                         type="date"
                         className="form-control"
                         value={show.showDate}
@@ -150,7 +155,7 @@ console.log(show)
                                 copy.cityName = e.target.value
                                 setShow(copy)
                             }}
-                        required autoFocus
+                        autoFocus
                         type="text"
                         className="form-control"
                         value={show.cityName}
@@ -166,7 +171,7 @@ console.log(show)
                                 copy.state = e.target.value
                                 setShow(copy)
                             }}
-                        required autoFocus
+                        autoFocus
                         type="text"
                         className="form-control"
                         value={show.state}
@@ -182,7 +187,7 @@ console.log(show)
                                 copy.country = e.target.value
                                 setShow(copy)
                             }}
-                        required autoFocus
+                        autoFocus
                         type="text"
                         className="form-control"
                         value={show.country}
@@ -198,7 +203,7 @@ console.log(show)
                                 copy.setList = e.target.value
                                 setShow(copy)
                             }}
-                        required autoFocus
+                        autoFocus
                         type="text"
                         className="form-control"
                         placeholder="setlist"
@@ -215,7 +220,7 @@ console.log(show)
                                 copy.showNotes = e.target.value
                                 setShow(copy)
                             }}
-                        required autoFocus
+                        autoFocus
                         type="text"
                         className="form-control"
                         placeholder="show notes"
@@ -232,7 +237,7 @@ console.log(show)
                                 copy.merchSales = e.target.value
                                 setShow(copy)
                             }}
-                        required autoFocus
+                        autoFocus
                         type="text"
                         className="form-control"
                         placeholder="merch sales"
@@ -249,7 +254,7 @@ console.log(show)
                                 copy.payout = e.target.value
                                 setShow(copy)
                             }}
-                        required autoFocus
+                        autoFocus
                         type="text"
                         className="form-control"
                         placeholder="payout"
@@ -264,10 +269,26 @@ console.log(show)
                 <button className="show-btn" onClick={cancelForm}>
                     Cancel
                 </button>&nbsp;
-                <button className="show-btn" onClick={Delete}>
+                <button className="show-btn" onClick={handleShow}>
                     Delete
                 </button>
             </section>
         </form>
+        <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Show</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this show?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={Delete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+        </>
     )
 }
